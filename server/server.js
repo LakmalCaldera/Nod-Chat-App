@@ -16,12 +16,24 @@ var io = socketIO(server);
 io.on('connection', (socket) => {
   console.log('New User Connected');
 
+  socket.emit('newMessage', {
+    from: 'Admin',
+    text: 'Welcome to the chat app',
+    createdAt: moment()
+  });
+
   socket.on('createMessage', (messageData) => {
     console.log('New Message Created', messageData);
 
-    io.emit('newMessage', {
-      from: messageData.from,
-      text: messageData.text,
+    // io.emit('newMessage', {
+    //   from: messageData.from,
+    //   text: messageData.text,
+    //   createdAt: moment()
+    // });
+
+    socket.broadcast.emit('newMessage', {
+      from: 'Admin',
+      text: 'A new user has joined - ' + messageData.from,
       createdAt: moment()
     });
   });

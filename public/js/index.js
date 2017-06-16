@@ -4,8 +4,7 @@ socket.on('connect', function(){
   console.log('Connected to Server');
 
   socket.emit('createMessage', {
-    from: 'Lakmal Caldera',
-    text: 'Hello World'
+    from: 'Lakmal Caldera'
   });
 
 
