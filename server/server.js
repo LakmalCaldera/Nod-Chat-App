@@ -20,16 +20,10 @@ io.on('connection', (socket) => {
   socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'A new user has joined'));
 
-  socket.on('createMessage', (messageData) => {
+  socket.on('createMessage', (messageData, callback) => {
     console.log('New Message Created', messageData);
+    callback('This is an ACK from the server!');
     io.emit('newMessage', generateMessage(messageData.from, messageData.text));
-    // io.emit('newMessage', {
-    //   from: messageData.from,
-    //   text: messageData.text,
-    //   createdAt: moment()
-    // });
-
-
   });
 
   socket.on('disconnect', (socket) => {
