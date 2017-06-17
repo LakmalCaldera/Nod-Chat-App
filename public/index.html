@@ -29,6 +29,7 @@
 
 
       <script type="text/template" id="message-template">
+        <li class="message">
         <div class="message__title">
           <h4>{{from}}</h4>
           <span>{{createdAt}}</span>
@@ -36,9 +37,11 @@
         <div class="message__body">
           <p>{{text}}</p>
         </div>
+      </li>
       </script>
 
       <script type="text/template" id="location-message-template">
+        <li class="message">
         <div class="message__title">
           <h4>{{from}}</h4>
           <span>{{createdAt}}</span>
@@ -46,6 +49,7 @@
         <div class="message__body">
           <a href={{url}} target="_blank">My current Location</a>
         </div>
+      </li>
       </script>
 
 
