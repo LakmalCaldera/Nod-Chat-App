@@ -3,7 +3,7 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 const moment = require('moment');
-const {generateMessage} = require('./util/message');
+const {generateMessage, generateLocationMessage} = require('./util/message');
 
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
@@ -24,6 +24,12 @@ io.on('connection', (socket) => {
     console.log('New Message Created', messageData);
     callback('This is an ACK from the server!');
     io.emit('newMessage', generateMessage(messageData.from, messageData.text));
+  });
+
+  socket.on('createLocationMessage', (messageData, callback) => {
+    console.log('New Location Message Created', messageData);
+    callback('This is an ACK from the server!');
+    io.emit('newLocationMessage', generateLocationMessage('Admin',messageData.latitude, messageData.longitude));
   });
 
   socket.on('disconnect', (socket) => {
