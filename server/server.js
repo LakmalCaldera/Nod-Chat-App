@@ -22,13 +22,12 @@ io.on('connection', (socket) => {
 
   socket.on('createMessage', (messageData, callback) => {
     console.log('New Message Created', messageData);
-    callback('This is an ACK from the server!');
+    callback();
     io.emit('newMessage', generateMessage(messageData.from, messageData.text));
   });
 
-  socket.on('createLocationMessage', (messageData, callback) => {
+  socket.on('createLocationMessage', (messageData) => {
     console.log('New Location Message Created', messageData);
-    callback('This is an ACK from the server!');
     io.emit('newLocationMessage', generateLocationMessage('Admin',messageData.latitude, messageData.longitude));
   });
 
