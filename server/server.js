@@ -22,12 +22,18 @@ io.on('connection', (socket) => {
   socket.on('createMessage', (messageData, callback) => {
     console.log('New Message Created', messageData);
     callback();
-    io.emit('newMessage', generateMessage(messageData.from, messageData.text));
+    var user = users.getUser(socket.id);
+    if(user && isRealString(messageData.text)){
+      io.to(user.room).emit('newMessage', generateMessage(user.name, messageData.text));
+    }
   });
 
   socket.on('createLocationMessage', (messageData) => {
     console.log('New Location Message Created', messageData);
-    io.emit('newLocationMessage', generateLocationMessage('Admin',messageData.latitude, messageData.longitude));
+    var user = users.getUser(socket.id);
+    if(user)  {
+      io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, messageData.latitude, messageData.longitude));
+    }
   });
 
   socket.on('join', (messageData, callback) => {
