@@ -76,6 +76,16 @@ socket.on('newLocationMessage', function(data){
   scrollToBottom();
 });
 
+socket.on('updateUserList', (users) => {
+  var ol = jQuery('<ol></ol>');
+
+  users.forEach(function(user){
+    ol.append(jQuery('<li></li>').text(user));
+  });
+
+  jQuery('#users').html(ol);
+});
+
 function logger(messageData){
   console.log('---------------');
   for (var key in messageData) {
